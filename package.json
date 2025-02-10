@@ -1,0 +1,45 @@
+{
+    "name": "playwright-common-library",
+    "version": "1.0.0",
+    "description": "Common library for Playwright automation framework",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "scripts": {
+        "build": "tsc",
+        "clean": "rimraf dist",
+        "lint": "eslint \"src/**/*.ts\"",
+        "lint:fix": "eslint \"src/**/*.ts\" --fix",
+        "format": "prettier --write \"src/**/*.ts\"",
+        "format:check": "prettier --check \"src/**/*.ts\"",
+        "prepare": "npm run clean && npm run build",
+        "test": "playwright test",
+        "test:headed": "playwright test --headed",
+        "test:ui": "playwright test --ui",
+        "prebuild": "npm run lint && npm run format:check",
+        "buildfix": "npm run lint:fix && npm run format"
+    },
+    "keywords": [
+        "playwright",
+        "automation",
+        "testing",
+        "typescript"
+    ],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "@faker-js/faker": "^8.4.1"
+    },
+    "devDependencies": {
+        "@playwright/test": "^1.50.1",
+        "@types/node": "^20.17.17",
+        "@typescript-eslint/eslint-plugin": "^7.18.0",
+        "@typescript-eslint/parser": "^7.18.0",
+        "eslint": "^8.57.1",
+        "eslint-config-prettier": "^9.1.0",
+        "eslint-plugin-import": "^2.31.0",
+        "eslint-plugin-prettier": "^5.2.3",
+        "prettier": "^3.5.0",
+        "rimraf": "^5.0.10",
+        "typescript": "^5.7.3"
+    }
+}
