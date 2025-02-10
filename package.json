@@ -1,5 +1,5 @@
 {
-    "name": "@ramamv/playwright-common-library",
+    "name": "@ramam-v/common-pw",
     "version": "1.0.7",
     "description": "Common library for Playwright automation framework",
     "main": "dist/index.js",
@@ -13,7 +13,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/ramamv/playwright-common-library.git"
+        "url": "git+https://github.com/ramam-v/common-pw.git"
     },
     "scripts": {
         "build": "tsc -p tsconfig.build.json",
