@@ -12,7 +12,7 @@ export class CommonUtils {
     if (!value || typeof value !== "string") return value;
 
     // If value doesn't start with '<', return as is
-    if (!value.startsWith('<')) return value;
+    if (!value.startsWith("<")) return value;
 
     // Handle date patterns
     if (value.startsWith("<TODAY")) {
@@ -40,7 +40,7 @@ export class CommonUtils {
     }
 
     // If no pattern matches but value has tags, remove them and return inner value
-    if (value.startsWith('<') && value.endsWith('>')) {
+    if (value.startsWith("<") && value.endsWith(">")) {
       return value.slice(1, -1);
     }
 
