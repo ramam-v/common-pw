@@ -71,7 +71,7 @@ export class CommonUtils {
     const match = pattern.match(/<DOB\s*(-?\d+)Y>/);
     if (!match) return this.formatDate(faker.date.past());
 
-    const yearsBack = parseInt(match[1]);
+    const yearsBack = Math.abs(parseInt(match[1]));
     const date = new Date();
     date.setFullYear(date.getFullYear() - yearsBack);
     return this.formatDate(faker.date.past({ years: yearsBack }));
