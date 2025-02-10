@@ -16,7 +16,6 @@ export class WebKeywords {
     return el.page();
   }
 
-
   /**
    * Enters text into an element and verifies
    */
@@ -40,7 +39,7 @@ export class WebKeywords {
    */
   async optionallyEnterText(el: Locator, dataValue: string, label: string) {
     try {
-      const stepSkip = this.comn.isEmpty(dataValue) ? '- Skipped' : '';
+      const stepSkip = this.comn.isEmpty(dataValue) ? "- Skipped" : "";
       const val = this.comn.dataValueHandler(dataValue);
 
       await test.step(`Enter ${val} into ${label} ${stepSkip}`, async () => {
@@ -61,9 +60,10 @@ export class WebKeywords {
    */
   async setCheckbox(el: Locator, state: boolean | string, label: string) {
     try {
-      const targetState = typeof state === 'string'
-        ? state.toLowerCase() === 'on' || state.toLowerCase() === 'true'
-        : state;
+      const targetState =
+        typeof state === "string"
+          ? state.toLowerCase() === "on" || state.toLowerCase() === "true"
+          : state;
 
       await test.step(`Set and verify ${label} checkbox to ${targetState}`, async () => {
         if (targetState) {
@@ -84,7 +84,11 @@ export class WebKeywords {
   /**
    * Optionally sets checkbox state
    */
-  async optionallySetCheckbox(el: Locator, state: boolean | string | undefined, label: string) {
+  async optionallySetCheckbox(
+    el: Locator,
+    state: boolean | string | undefined,
+    label: string,
+  ) {
     try {
       if (this.comn.isEmpty(state)) return;
       await this.setCheckbox(el, state!, label);
@@ -103,7 +107,9 @@ export class WebKeywords {
         const val = this.comn.dataValueHandler(value);
         await el.selectOption({ value: val });
 
-        const selectedValue = await el.evaluate((e) => (e as HTMLSelectElement).value);
+        const selectedValue = await el.evaluate(
+          (e) => (e as HTMLSelectElement).value,
+        );
         expect(selectedValue).toBe(val);
       });
     } catch (error) {
@@ -112,7 +118,11 @@ export class WebKeywords {
     }
   }
 
-  async optionallySelectByValue(el: Locator, value: string | undefined, label: string) {
+  async optionallySelectByValue(
+    el: Locator,
+    value: string | undefined,
+    label: string,
+  ) {
     try {
       if (this.comn.isEmpty(value)) return;
       await this.selectByValue(el, value!, label);
@@ -127,7 +137,9 @@ export class WebKeywords {
       await test.step(`Select and verify option at index ${index} from ${label}`, async () => {
         await el.selectOption({ index });
 
-        const selectedIndex = await el.evaluate((e) => (e as HTMLSelectElement).selectedIndex);
+        const selectedIndex = await el.evaluate(
+          (e) => (e as HTMLSelectElement).selectedIndex,
+        );
         expect(selectedIndex).toBe(index);
       });
     } catch (error) {
@@ -136,7 +148,11 @@ export class WebKeywords {
     }
   }
 
-  async optionallySelectByIndex(el: Locator, index: number | undefined, label: string) {
+  async optionallySelectByIndex(
+    el: Locator,
+    index: number | undefined,
+    label: string,
+  ) {
     try {
       if (this.comn.isEmpty(index)) return;
       await this.selectByIndex(el, index!, label);
@@ -164,12 +180,19 @@ export class WebKeywords {
     }
   }
 
-  async optionallySelectByLabel(el: Locator, label: string | undefined, listLabel: string) {
+  async optionallySelectByLabel(
+    el: Locator,
+    label: string | undefined,
+    listLabel: string,
+  ) {
     try {
       if (this.comn.isEmpty(label)) return;
       await this.selectByLabel(el, label!, listLabel);
     } catch (error) {
-      console.error(`Error optionally selecting label from ${listLabel}:`, error);
+      console.error(
+        `Error optionally selecting label from ${listLabel}:`,
+        error,
+      );
       throw error;
     }
   }
