@@ -4,11 +4,15 @@ import { faker } from "@faker-js/faker";
 export class CommonUtils {
   /**
    * Handles special data values and converts them to appropriate formats
+   * If value doesn't have tags <>, returns the original value
    * @param value - Input value to process
    * @returns Processed value
    */
   dataValueHandler(value: string): string {
     if (!value || typeof value !== "string") return value;
+
+    // If value doesn't start with '<', return as is
+    if (!value.startsWith('<')) return value;
 
     // Handle date patterns
     if (value.startsWith("<TODAY")) {
@@ -33,6 +37,11 @@ export class CommonUtils {
     // Handle DOB with year offset
     if (value.startsWith("<DOB")) {
       return this.processDOBPattern(value);
+    }
+
+    // If no pattern matches but value has tags, remove them and return inner value
+    if (value.startsWith('<') && value.endsWith('>')) {
+      return value.slice(1, -1);
     }
 
     return value;
