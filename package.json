@@ -4,14 +4,27 @@
     "description": "Common library for Playwright automation framework",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
+    "files": [
+        "dist/**/*"
+    ],
+    "publishConfig": {
+        "registry": "https://npm.pkg.github.com"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/ramam-v/common-pw.git"
+    },
     "scripts": {
-        "build": "tsc",
+        "build": "tsc -p tsconfig.build.json",
+        "prepare": "npm run clean && npm run build",
+        "prepublishOnly": "npm run lint && npm run test",
+        "version": "npm run format && git add -A src",
+        "postversion": "git push && git push --tags",
         "clean": "rimraf dist",
         "lint": "eslint \"src/**/*.ts\"",
         "lint:fix": "eslint \"src/**/*.ts\" --fix",
         "format": "prettier --write \"src/**/*.ts\"",
         "format:check": "prettier --check \"src/**/*.ts\"",
-        "prepare": "npm run clean && npm run build",
         "test": "playwright test",
         "test:headed": "playwright test --headed",
         "test:ui": "playwright test --ui",
