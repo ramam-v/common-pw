@@ -1,6 +1,6 @@
 {
-    "name": "playwright-common-library",
-    "version": "1.0.3",
+    "name": "@ramamv/playwright-common-library",
+    "version": "1.0.0",
     "description": "Common library for Playwright automation framework",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
@@ -8,28 +8,25 @@
         "dist/**/*"
     ],
     "publishConfig": {
-        "registry": "https://npm.pkg.github.com"
+        "registry": "https://npm.pkg.github.com",
+        "access": "public"
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/ramam-v/common-pw.git"
+        "url": "git+https://github.com/ramamv/playwright-common-library.git"
     },
     "scripts": {
         "build": "tsc -p tsconfig.build.json",
-        "prepare": "npm run clean && npm run build",
-        "prepublishOnly": "npm run lint && npm run test",
-        "version": "npm run format && git add -A src",
-        "postversion": "git push && git push --tags",
         "clean": "rimraf dist",
-        "lint": "eslint \"src/**/*.ts\"",
-        "lint:fix": "eslint \"src/**/*.ts\" --fix",
-        "format": "prettier --write \"src/**/*.ts\"",
-        "format:check": "prettier --check \"src/**/*.ts\"",
+        "lint": "eslint \"src/**/*.ts\" \"tests/**/*.ts\"",
+        "lint:fix": "eslint \"src/**/*.ts\" \"tests/**/*.ts\" --fix",
+        "format": "prettier --write \"src/**/*.ts\" \"tests/**/*.ts\"",
+        "format:check": "prettier --check \"src/**/*.ts\" \"tests/**/*.ts\"",
+        "prepare": "npm run clean && npm run build",
+        "prepublishOnly": "npm run lint && npm run format:check",
         "test": "playwright test",
         "test:headed": "playwright test --headed",
-        "test:ui": "playwright test --ui",
-        "prebuild": "npm run lint && npm run format:check",
-        "buildfix": "npm run lint:fix && npm run format"
+        "test:ui": "playwright test --ui"
     },
     "keywords": [
         "playwright",
@@ -40,19 +37,19 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "@faker-js/faker": "^8.4.1"
+        "@faker-js/faker": "^8.4.1",
+        "@playwright/test": "^1.42.1"
     },
     "devDependencies": {
-        "@playwright/test": "^1.50.1",
-        "@types/node": "^20.17.17",
-        "@typescript-eslint/eslint-plugin": "^7.18.0",
-        "@typescript-eslint/parser": "^7.18.0",
-        "eslint": "^8.57.1",
+        "@types/node": "^20.11.24",
+        "@typescript-eslint/eslint-plugin": "^7.1.0",
+        "@typescript-eslint/parser": "^7.1.0",
+        "eslint": "^8.57.0",
         "eslint-config-prettier": "^9.1.0",
-        "eslint-plugin-import": "^2.31.0",
-        "eslint-plugin-prettier": "^5.2.3",
-        "prettier": "^3.5.0",
-        "rimraf": "^5.0.10",
-        "typescript": "^5.7.3"
+        "eslint-plugin-import": "^2.29.1",
+        "eslint-plugin-prettier": "^5.1.3",
+        "prettier": "^3.2.5",
+        "rimraf": "^5.0.5",
+        "typescript": "^5.3.3"
     }
 }
