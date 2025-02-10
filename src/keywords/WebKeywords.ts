@@ -16,7 +16,163 @@ export class WebKeywords {
     return el.page();
   }
 
-  // ... [Previous methods remain the same] ...
+
+  /**
+   * Enters text into an element and verifies
+   */
+  async enterText(el: Locator, dataValue: string, label: string) {
+    try {
+      await test.step(`Enter and verify ${dataValue} into ${label}`, async () => {
+        const val = this.comn.dataValueHandler(dataValue);
+        await el.fill(val);
+
+        const actualValue = await el.inputValue();
+        expect(actualValue).toBe(val);
+      });
+    } catch (error) {
+      console.error(`Error entering text into ${label}:`, error);
+      throw error;
+    }
+  }
+
+  /**
+   * Optionally enters text into an element
+   */
+  async optionallyEnterText(el: Locator, dataValue: string, label: string) {
+    try {
+      const stepSkip = this.comn.isEmpty(dataValue) ? '- Skipped' : '';
+      const val = this.comn.dataValueHandler(dataValue);
+
+      await test.step(`Enter ${val} into ${label} ${stepSkip}`, async () => {
+        if (!this.comn.isEmpty(dataValue)) {
+          await el.fill(val);
+          const actualValue = await el.inputValue();
+          expect(actualValue).toBe(val);
+        }
+      });
+    } catch (error) {
+      console.error(`Error optionally entering text into ${label}:`, error);
+      throw error;
+    }
+  }
+
+  /**
+   * Sets checkbox state and verifies
+   */
+  async setCheckbox(el: Locator, state: boolean | string, label: string) {
+    try {
+      const targetState = typeof state === 'string'
+        ? state.toLowerCase() === 'on' || state.toLowerCase() === 'true'
+        : state;
+
+      await test.step(`Set and verify ${label} checkbox to ${targetState}`, async () => {
+        if (targetState) {
+          await el.check();
+        } else {
+          await el.uncheck();
+        }
+
+        const isChecked = await el.isChecked();
+        expect(isChecked).toBe(targetState);
+      });
+    } catch (error) {
+      console.error(`Error setting checkbox ${label}:`, error);
+      throw error;
+    }
+  }
+
+  /**
+   * Optionally sets checkbox state
+   */
+  async optionallySetCheckbox(el: Locator, state: boolean | string | undefined, label: string) {
+    try {
+      if (this.comn.isEmpty(state)) return;
+      await this.setCheckbox(el, state!, label);
+    } catch (error) {
+      console.error(`Error optionally setting checkbox ${label}:`, error);
+      throw error;
+    }
+  }
+
+  /**
+   * Select list operations
+   */
+  async selectByValue(el: Locator, value: string, label: string) {
+    try {
+      await test.step(`Select and verify ${value} from ${label}`, async () => {
+        const val = this.comn.dataValueHandler(value);
+        await el.selectOption({ value: val });
+
+        const selectedValue = await el.evaluate((e) => (e as HTMLSelectElement).value);
+        expect(selectedValue).toBe(val);
+      });
+    } catch (error) {
+      console.error(`Error selecting value ${value} from ${label}:`, error);
+      throw error;
+    }
+  }
+
+  async optionallySelectByValue(el: Locator, value: string | undefined, label: string) {
+    try {
+      if (this.comn.isEmpty(value)) return;
+      await this.selectByValue(el, value!, label);
+    } catch (error) {
+      console.error(`Error optionally selecting value from ${label}:`, error);
+      throw error;
+    }
+  }
+
+  async selectByIndex(el: Locator, index: number, label: string) {
+    try {
+      await test.step(`Select and verify option at index ${index} from ${label}`, async () => {
+        await el.selectOption({ index });
+
+        const selectedIndex = await el.evaluate((e) => (e as HTMLSelectElement).selectedIndex);
+        expect(selectedIndex).toBe(index);
+      });
+    } catch (error) {
+      console.error(`Error selecting index ${index} from ${label}:`, error);
+      throw error;
+    }
+  }
+
+  async optionallySelectByIndex(el: Locator, index: number | undefined, label: string) {
+    try {
+      if (this.comn.isEmpty(index)) return;
+      await this.selectByIndex(el, index!, label);
+    } catch (error) {
+      console.error(`Error optionally selecting index from ${label}:`, error);
+      throw error;
+    }
+  }
+
+  async selectByLabel(el: Locator, label: string, listLabel: string) {
+    try {
+      await test.step(`Select and verify option with label "${label}" from ${listLabel}`, async () => {
+        const val = this.comn.dataValueHandler(label);
+        await el.selectOption({ label: val });
+
+        const selectedLabel = await el.evaluate((e) => {
+          const select = e as HTMLSelectElement;
+          return select.options[select.selectedIndex].text;
+        });
+        expect(selectedLabel).toBe(val);
+      });
+    } catch (error) {
+      console.error(`Error selecting label ${label} from ${listLabel}:`, error);
+      throw error;
+    }
+  }
+
+  async optionallySelectByLabel(el: Locator, label: string | undefined, listLabel: string) {
+    try {
+      if (this.comn.isEmpty(label)) return;
+      await this.selectByLabel(el, label!, listLabel);
+    } catch (error) {
+      console.error(`Error optionally selecting label from ${listLabel}:`, error);
+      throw error;
+    }
+  }
 
   /**
    * Clicks on an element and verifies the action
