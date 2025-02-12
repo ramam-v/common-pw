@@ -11,7 +11,6 @@ A robust common library for Playwright automation framework that provides reusab
 - [Usage Examples](#usage-examples)
 - [Available Scripts](#available-scripts)
 - [Data Value Patterns](#data-value-patterns)
-- [Contributing](#contributing)
 - [License](#license)
 
 ## Features
@@ -283,14 +282,6 @@ await pageKeywords.capturePageScreenshot(page, 'landing-page', true);
 | `<LASTNAME>` | Random last name | Smith |
 | `<DOB>` | Random date of birth | 05/15/1990 |
 | `<DOB -nY>` | DOB n years ago | 05/15/2005 |
-
-## Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
 
 ## License
 
