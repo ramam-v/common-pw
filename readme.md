@@ -11,7 +11,6 @@ A robust common library for Playwright automation framework that provides reusab
 - [Usage Examples](#usage-examples)
 - [Available Scripts](#available-scripts)
 - [Data Value Patterns](#data-value-patterns)
-- [Contributing](#contributing)
 - [License](#license)
 
 ## Features
