@@ -1,7 +1,42 @@
 // src/utils/CommonUtils.ts
 import { faker } from "@faker-js/faker";
+import { test } from '@playwright/test';
 
 export class CommonUtils {
+
+  /**
+ * Returns formatted timestamp in MM/DD/YYYY, HH:MM:SS format
+ * @returns Formatted timestamp string
+ */
+  getFormattedTimestamp(): string {
+    return new Date().toLocaleString('en-US', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: false
+    });
+  }
+
+  /**
+   * Reports test execution start with timestamp
+   */
+  async reportTestStart(): Promise<void> {
+    await test.step(`Test execution started - ${this.getFormattedTimestamp()}`, async () => {
+      // Step is used for reporting purposes
+    });
+  }
+
+  /**
+   * Reports test execution completion with timestamp
+   */
+  async reportTestEnd(): Promise<void> {
+    await test.step(`Test execution completed - ${this.getFormattedTimestamp()}`, async () => {
+      // Step is used for reporting purposes
+    });
+  }
   /**
    * Handles special data values and converts them to appropriate formats
    * If value doesn't have tags <>, returns the original value
